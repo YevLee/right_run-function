@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<script src="jquery.js"></script>
+	<title>立即执行函数</title>
+</head>
+<body>
+	<div class="setbgColor">sfsdgs</div>
+	<script>
+// 		;(function($){// 可以去掉开头的 ; （分号），国外的开发人员编写的插件时的一种习惯 
+//      $.fn.setbgColor = function(el,color) {     
+//            // Our plugin implementation code goes here. 
+// 			  var $el=$(el)
+// 			  //$("body").append($el)
+// 			 $el.css({backgroundColor:color});
+// 			  return this;
+// 			
+//      };
+// })(jQuery);    //传入一个jQuery的参数(其是就是匿名函数的参数$的值为jQuery)，是因为该方法是对jQuery库的扩展，那么在该方法体内就可以调用jQuery库中的函数；若不传入，则无法调用jQuery库
+// 
+	
+//构造器封装函数
+function setbgColor(el,css){
+	this.el=$(el);
+	this.el.css(css)
+	return this;
+}
+	$(function(){
+		var css={
+			backgroundColor:"red",
+			width:300,
+			height:400
+		}
+		new setbgColor(".setbgColor",css)
+	})
+	
+	//全局函数1
+jQuery.foo=function(){
+	console.log(1111);
+};
+jQuery.bar=function(params){
+	console.log(params);
+};
+$.foo();
+$.bar('2312');
+
+	//全局函数2
+jQuery.extend({
+	tend1:function(el,color){
+		var $el=$(el);
+		$el.css({color:color})
+	},
+	tend2:function(){
+		console.log("tend2")
+	}
+});
+$.tend1(".setbgColor","red");
+$.tend2();
+
+$.fn.height(function(options){
+	console.log(options)
+});
+
+//$.fn可拓展封装函数
+(function($){
+	// plugin definition
+	$.fn.hilight = function(options) {
+	  var defaults = {
+	    color: 'orange',
+	    background: 'yellow'
+	  };
+	  var _this=$(this);
+	  //console.log(_this);
+	 
+	  // Extend our default options with those provided.
+	  var opts = $.extend(defaults, options);
+	 _this.css(opts);
+	 var html=_this.html();
+	 var mark= $.fn.hilight.format(html);
+	 _this.html(mark);
+	
+	};
+	$.fn.hilight.format=function(txt){
+		return '<strong>'+txt+'</strong>'
+	}
+})(jQuery)
+	//我们的插件可以这样被调用：
+	$('.setbgColor').hilight({
+	  color: 'blue'
+	});
+	
+	
+//$.fn.extend方法封装函数
+(function($){
+	$.fn.extend({
+		HoverChangecolor:function(){
+			var _this=$(this);
+			_this.hover(function(){
+				_this.css({backgroundColor:"red"})
+			},function(){
+				_this.css({backgroundColor:"yellow"})
+			})
+		}
+	})
+})(jQuery)
+$('.setbgColor').HoverChangecolor();
+	</script>
+</body>
+</html>
