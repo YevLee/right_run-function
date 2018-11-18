@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Document</title>
+	</head>
+	<body>
+		<div class="container">
+
+			<style>
+				li {
+					margin-bottom: 20px;
+				}
+
+				li p {
+					display: none;
+				}
+			</style>
+		</div>
+		<script>
+			(function() {
+				var ul = document.createElement("ul");
+				var stringHtml = "";
+				function packContainer(el, cfg, ptxt) {
+					this.el = el;
+					for (var i in ptxt) {
+						stringHtml += '<li>有惊喜<p>' + ptxt[i] + '</p></li>'
+
+					}
+					ul.innerHTML = stringHtml;
+					this.el.appendChild(ul);
+					var p;
+					//console.log(this.el);
+					var liItems = this.el.getElementsByTagName("li");
+					for (var i = 0; i < liItems.length; i++) {
+						if (cfg.enterColor) {
+							liItems[i].onmousemove = function() {
+								//liItems[i].style.backgroundColor="none";
+								this.style.backgroundColor = cfg.enterColor;
+								//console.log();
+								p=this.getElementsByTagName('p')[0];
+								p.style.display="block"
+							};
+						}
+						if (cfg.outColor) {
+							liItems[i].onmouseout = function() {
+								//liItems[i].style.backgroundColor="none";
+								this.style.backgroundColor = cfg.outColor;
+								p=this.getElementsByTagName('p')[0];
+								p.style.display="none"
+							}
+						}
+					}
+				};
+				window.packContainer = packContainer;
+			})(window);
+			var ptxt = ['111', '222', '333'];
+			var cfg = {
+				enterColor: "red",
+				outColor: "#fff",
+				//show: true
+			}
+			var container = document.querySelector(".container")
+			var NewPackContainer = new packContainer(container, cfg, ptxt);
+		</script>
+	</body>
+</html>
