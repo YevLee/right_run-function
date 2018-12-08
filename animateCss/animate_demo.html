@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script src="../jquery.js"></script>
+	<link rel="stylesheet" href="animate.min.css">
+	<title>Document</title>
+</head>
+<style>
+body{
+	margin:0;
+	padding:0;
+}
+.menu_cnt{
+	position: relative;
+	width:500px;
+}
+	.menu li{
+		float:left;
+		margin-right:30px;
+		
+	}
+	.menu_s{
+		display: none;
+	position: absolute;
+	top:0;
+	right:100px;
+	}
+	.menu_s li{
+		
+	}
+
+</style>
+<body>
+	<div class="menu_cnt">
+		<div class="menu animated">
+			<ul>
+				<li>qwe</li>
+				<li>weqw</li>
+				<li>weqwe</li>
+				<li>wqeqw</li>
+				<li>weqwe</li>
+			</ul>
+		</div>
+		<div class="menu_s animated">
+		<ul>
+			<li class="animated">111</li>
+			<li class="animated">222</li>
+			<li class="animated">333</li>
+			<li class="animated">444</li>
+			<li class="animated">555</li>
+		</ul>
+	</div>
+	</div>
+	
+	
+	<button class="open">open</button>
+	<button class="close">close</button>
+	<script>
+		$(function(){
+			$('.open').click(function(){
+				var slideInRight=$('.menu').hasClass('slideInRight');
+				if(slideInRight){
+					$('.menu').removeClass('slideInRight');
+				}
+				$('.menu').addClass('fadeOutRight');
+				//$('.menu_s').css({display:'block'})
+				$('.menu_s').slideDown();
+				//$('.menu_s').find('li').css({display:'none'})
+				$('.menu_s').find('li').addClass('fadeInRight')
+				$.each($('.menu_s').find('li'),function(i){
+					var id=i+1;
+					var className=id+'s';
+					console.log(className)
+					var delay={'animation-delay':className}
+					//var opacity0={'opacity':'0'};
+					$('.menu_s').find('li').eq(i).css(delay);
+
+				
+				})
+			})
+			$('.close').click(function(){
+				var fadeOutRight=$('.menu').hasClass('fadeOutRight');
+				if(fadeOutRight){
+					$('.menu').removeClass('fadeOutRight')
+				}
+				var lihasslideInRight=$('.menu_s').find('li').hasClass('fadeInRight')
+				if(lihasslideInRight){
+					$('.menu_s').find('li').removeClass('fadeInRight')
+				}
+				$('.menu').addClass('slideInRight')
+				$('.menu_s').slideUp();
+			})
+		})
+	</script>
+</body>
+</html>
