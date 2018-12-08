@@ -56,8 +56,14 @@ body{
 	
 	<button class="open">open</button>
 	<button class="close">close</button>
+
+
+	<div class="infi animated flipInX" style="animation-delay: 5s;animation-duration: 2s">hahahah</div>
+	<div class="infi animated slideInDown" style="animation-delay: 4s;animation-duration: 3s">boone</div>
 	<script>
 		$(function(){
+			//判断含有某个class的div重复动画
+			$('.infi').addClass('infinite');
 			$('.open').click(function(){
 				var slideInRight=$('.menu').hasClass('slideInRight');
 				if(slideInRight){
